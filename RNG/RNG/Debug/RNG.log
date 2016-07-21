@@ -1,0 +1,8 @@
+﻿  stdafx.cpp
+  Generator.cpp
+  CustomerFactory.cpp
+  Generating Code...
+c:\users\gseaward\documents\visual studio 2015\projects\management_and_marshelling\rng\rng\generator.cpp(16): warning C4172: returning address of local variable or temporary: array
+  dllmain.cpp
+     Creating library ..\..\Build\Debug\RNG.lib and object ..\..\Build\Debug\RNG.exp
+  RNG.vcxproj -> C:\Users\gseaward\Documents\Visual Studio 2015\Projects\Management_And_Marshelling\RNG\RNG\..\..\Build\Debug\RNG.dll

@@ -1,0 +1,5 @@
+C:\Users\gseaward\Documents\Visual Studio 2015\Projects\Management_And_Marshelling\Build\Debug\RNG.ComApi.dll
+C:\Users\gseaward\Documents\Visual Studio 2015\Projects\Management_And_Marshelling\Build\Debug\RNG.ComApi.pdb
+C:\Users\gseaward\Documents\Visual Studio 2015\Projects\Management_And_Marshelling\RNG.ComApi\RNG.ComApi\obj\Debug\RNG.ComApi.dll
+C:\Users\gseaward\Documents\Visual Studio 2015\Projects\Management_And_Marshelling\RNG.ComApi\RNG.ComApi\obj\Debug\RNG.ComApi.pdb
+C:\Users\gseaward\Documents\Visual Studio 2015\Projects\Management_And_Marshelling\Build\Debug\RNG.ComApi.tlb
