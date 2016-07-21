@@ -9,8 +9,6 @@ Class CustomerWrapper: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Interfaces:
     System.IDisposable
-  Fields:
-    CUSTOMER* _customer : Public
   Properties:
     Int32 CustomerId 'get set' : 
     System.String LastName 'get set' : 
@@ -29,12 +27,22 @@ Class RngWrapper: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     System.IDisposable
   Events:
     SomeEventHandler sendbackEvent: SpecialName
+    CustomerEventHandler customerSendbackEvent: SpecialName
   Methods:
     RandomArray(): PrivateScope, Public, HideBySig
     CreateCustomer(): PrivateScope, Public, HideBySig
+    add_customerSendbackEvent(CustomerEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    remove_customerSendbackEvent(CustomerEventHandler): PrivateScope, Public, HideBySig, SpecialName
     add_sendbackEvent(SomeEventHandler): PrivateScope, Public, HideBySig, SpecialName
     remove_sendbackEvent(SomeEventHandler): PrivateScope, Public, HideBySig, SpecialName
     Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class RngWrapper+CustomerEventHandler: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(CustomerWrapper): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(CustomerWrapper, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
 Class RngWrapper+SomeEventHandler: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
   :System.MulticastDelegate
     Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName

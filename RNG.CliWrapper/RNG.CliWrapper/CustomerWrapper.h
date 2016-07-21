@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "Customer.h"
 #include "Generator.h"
+#include "ManagedCustomer.h"
 
 public ref struct CustomerWrapper {
 public:
@@ -16,12 +17,13 @@ public:
 		System::String ^get()
 		{
 			//return gcnew System::String(_customer->cust_firstName);
-			return System::Runtime::InteropServices::Marshal::PtrToStringAnsi(System::IntPtr(_customer->cust_firstName));
+			return System::Runtime::InteropServices::Marshal::PtrToStringAnsi(System::IntPtr(_customer.cust_firstName));
 		}
 		void set(System::String^ value)
 		{
 			char *unmanagedVal = (char *)System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi(value).ToPointer();
-			memcpy(_customer->cust_firstName, unmanagedVal, sizeof(unmanagedVal));
+			//memcpy(_customer.cust_firstName, unmanagedVal, sizeof(unmanagedVal));
+			_customer.cust_firstName = unmanagedVal;
 		}
 	}
 
@@ -29,12 +31,13 @@ public:
 	{
 		System::String ^get()
 		{
-			return gcnew System::String(_customer->cust_lastName);
+			return gcnew System::String(_customer.cust_lastName);
 		}
 		void set(System::String^ value)
 		{
 			char *unmanagedVal = (char *)System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi(value).ToPointer();
-			memcpy(_customer->cust_lastName, unmanagedVal, sizeof(unmanagedVal));
+			//memcpy(_customer.cust_lastName, unmanagedVal, sizeof(unmanagedVal));
+			_customer.cust_lastName = unmanagedVal;
 		}
 	}
 
@@ -42,18 +45,19 @@ public:
 	{
 		int get()
 		{
-			return _customer->cust_id;
+			return _customer.cust_id;
 		}
 		void set(int value)
 		{
-			_customer->cust_id = value;
+			_customer.cust_id = value;
 		}
 	}
-	CUSTOMER *_customer;
+	
 private :
 	HINSTANCE hDLL;
 	void LoadCustomer();
-	
+	void MapToManaged(CUSTOMER* customer);
+	ManagedCustomer _customer;
 };
 
 

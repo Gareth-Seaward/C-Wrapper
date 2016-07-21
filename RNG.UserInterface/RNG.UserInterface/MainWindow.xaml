@@ -47,7 +47,7 @@
                     <Label>Last Name</Label>
                     <TextBox x:Name="txtCustomerId"></TextBox>
                 </StackPanel>
-                <Button x:Name="btnSubmit" Content="Save" VerticalAlignment="Center"/>
+                <Button x:Name="btnSubmit" Content="Save" VerticalAlignment="Center" Click="btnSubmit_Click"/>
             </StackPanel>
 
         <Viewbox Grid.Row="2">

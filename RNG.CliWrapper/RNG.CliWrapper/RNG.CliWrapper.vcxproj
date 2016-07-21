@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CustomerWrapper.h" />
+    <ClInclude Include="ManagedCustomer.h" />
     <ClInclude Include="Poster.h" />
     <ClInclude Include="RNGWrapper.h" />
     <ClInclude Include="stdafx.h" />

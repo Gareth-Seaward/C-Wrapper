@@ -29,5 +29,8 @@ System::Collections::Generic::List<ULONG>^ RngWrapper::RandomArray()
 CustomerWrapper^ RngWrapper::CreateCustomer()
 {
 	CustomerWrapper^ customer = gcnew CustomerWrapper();
+
+	customerSendbackEvent(customer);
+
 	return customer;
 };

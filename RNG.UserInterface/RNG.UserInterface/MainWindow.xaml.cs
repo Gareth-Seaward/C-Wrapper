@@ -11,6 +11,7 @@ namespace RNG.UserInterface
     {
 
         private static EventWaitHandle _ewh;
+        private static EventWaitHandle _customerEwh;
         private readonly object _vault = new object();
         private CustomerWrapper _customer;
 
@@ -18,6 +19,7 @@ namespace RNG.UserInterface
         {
             InitializeComponent();
             _ewh = new EventWaitHandle(false,EventResetMode.AutoReset);
+            _customerEwh = new EventWaitHandle(false,EventResetMode.AutoReset);
         }
 
         private void btnGenerate_Click(object sender, RoutedEventArgs e)
@@ -44,11 +46,21 @@ namespace RNG.UserInterface
         }
 
 
-        private void CallUserInterface(string args)
+        private void CallUi_UpdateNumberList(string args)
         {
             Dispatcher.Invoke(() => { UpdateListBox(args); });
             _ewh.WaitOne();
             //var temp = args;
+        }
+
+        private void CallUI_SetCustomerContext(CustomerWrapper customer)
+        {
+            lock (_vault)
+            {
+                _customer = customer;
+            }
+            Dispatcher.Invoke(SetDataContext);
+            _customerEwh.WaitOne();
         }
 
         private void btnSignal_Click(object sender, RoutedEventArgs e)
@@ -59,7 +71,7 @@ namespace RNG.UserInterface
         private void NumGenProc()
         {
             var rng = new RngWrapper();
-            rng.sendbackEvent += CallUserInterface;
+            rng.sendbackEvent += CallUi_UpdateNumberList;
             var noArray = rng.RandomArray();
 
             Dispatcher.Invoke(() => { IsEnabled_Generate(true); });
@@ -71,27 +83,44 @@ namespace RNG.UserInterface
             lock (_vault)
             {
                 txtFirstName.Text = _customer.FirstName;
+                txtLastName.Text = _customer.LastName;
+                txtCustomerId.Text = _customer.CustomerId.ToString();
             }
         }
 
         private void CustFetchProc()
         {
             var rng = new RngWrapper();
+            rng.customerSendbackEvent += CallUI_SetCustomerContext;
+
             _customer = rng.CreateCustomer();
 
-            Dispatcher.Invoke(SetDataContext);
             Dispatcher.Invoke(
                 () =>
                 {
                     UpdateStatus($"Customer {_customer.FirstName} {_customer.LastName}, Id: {_customer.CustomerId}");
                 });
-
         }
 
         private void btnCustomer_Click(object sender, RoutedEventArgs e)
         {
             var t = new Thread(CustFetchProc);
             t.Start();
+        }
+
+        private void btnSubmit_Click(object sender, RoutedEventArgs e)
+        {
+            lock (_vault)
+            {
+                _customer.FirstName = txtFirstName.Text;
+                _customer.LastName = txtLastName.Text;
+                int id;
+                if (int.TryParse(txtCustomerId.Text, out id))
+                {
+                    _customer.CustomerId = id;
+                }
+            }
+            _customerEwh.Set();
         }
     }
 }

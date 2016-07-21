@@ -11,8 +11,8 @@ CustomerWrapper::~CustomerWrapper()
 	if (hDLL)
 		FreeLibrary(hDLL);
 
-	delete _customer;
-	_customer = 0;
+	/*delete _customer;
+	_customer = 0;*/
 }
 
 CustomerWrapper::!CustomerWrapper()
@@ -20,8 +20,8 @@ CustomerWrapper::!CustomerWrapper()
 	if (hDLL)
 		FreeLibrary(hDLL);
 
-	delete _customer;
-	_customer = 0;
+	//delete _customer;
+	//_customer = 0;
 }
 
 void CustomerWrapper::LoadCustomer()
@@ -30,6 +30,16 @@ void CustomerWrapper::LoadCustomer()
 	if (hDLL == NULL) return;
 
 	GENERATECUSTOMERRECORD pfGenerateCustomerRecord = (GENERATECUSTOMERRECORD)GetProcAddress(hDLL, "GenerateCustomerRecord");
-	_customer = &pfGenerateCustomerRecord();
+	CUSTOMER* customer = &pfGenerateCustomerRecord();
+
+	MapToManaged(customer);
+}
+
+void CustomerWrapper::MapToManaged(CUSTOMER* customer)
+{
+	_customer.cust_firstName = customer->cust_firstName;
+	_customer.cust_lastName = customer->cust_lastName;
+	
+	_customer.cust_id = customer->cust_id;
 }
 

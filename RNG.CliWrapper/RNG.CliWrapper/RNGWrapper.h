@@ -14,6 +14,9 @@ public :
 	System::Collections::Generic::List<ULONG>^ RandomArray();
 	CustomerWrapper^ CreateCustomer();
 
+	delegate void CustomerEventHandler(CustomerWrapper^ customer);
+	event CustomerEventHandler^ customerSendbackEvent;
+
 	delegate void SomeEventHandler(System::String^ message);
 	event SomeEventHandler^ sendbackEvent;
 private:
