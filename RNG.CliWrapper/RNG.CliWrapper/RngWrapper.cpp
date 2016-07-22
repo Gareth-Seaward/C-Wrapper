@@ -4,9 +4,9 @@
 
 
 
-System::Collections::Generic::List<ULONG>^ RngWrapper::RandomArray()
+System::Collections::Generic::List<System::UInt64>^ RngWrapper::RandomArray()
 {
-	System::Collections::Generic::List<ULONG>^ mngdArray = gcnew System::Collections::Generic::List<ULONG>();
+	System::Collections::Generic::List<System::UInt64>^ mngdArray = gcnew System::Collections::Generic::List<System::UInt64>();
 
 	hDLL = LoadLibrary(TEXT("RNG.dll"));
 	if (hDLL == NULL) return mngdArray;

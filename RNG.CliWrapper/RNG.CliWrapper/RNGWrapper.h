@@ -11,7 +11,7 @@ public :
 	RngWrapper() {}
 	~RngWrapper() {}
 
-	System::Collections::Generic::List<ULONG>^ RandomArray();
+	System::Collections::Generic::List<System::UInt64>^ RandomArray();
 	CustomerWrapper^ CreateCustomer();
 
 	delegate void CustomerEventHandler(CustomerWrapper^ customer);
